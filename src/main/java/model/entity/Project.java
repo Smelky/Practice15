@@ -1,10 +1,11 @@
 package model.entity;
 
-import model.listener.ModelListener;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import model.listener.ModelListener;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -12,11 +13,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
+@EqualsAndHashCode(callSuper = true)
+@Data
 @Entity
 @Table(name = "project")
 @NoArgsConstructor
@@ -25,7 +27,7 @@ import java.util.Set;
 public class Project extends Model {
 
     @Column(name = "date")
-    private String date;
+    private LocalDate date;
 
     @ManyToMany(mappedBy = "projects")
     private Set<Developer> developers = new HashSet<>();

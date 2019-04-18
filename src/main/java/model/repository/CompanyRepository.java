@@ -1,12 +1,16 @@
 package model.repository;
 
 import model.entity.Company;
+import model.interfaces.CompanyI;
+import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class CompanyRepository implements ModelRepository<Company> {
+public class CompanyRepository implements CompanyI<Company> {
+    private static final Logger LOGGER = Logger.getLogger(CompanyRepository.class);
+
     private EntityManagerFactory emf =
             Persistence.createEntityManagerFactory("homework");
     private EntityManager em;
@@ -17,17 +21,27 @@ public class CompanyRepository implements ModelRepository<Company> {
 
     @Override
     public Company create(Company company) {
-        em.getTransaction().begin();
-        em.persist(company);
-        em.getTransaction().commit();
+        try {
+            em.getTransaction().begin();
+            em.persist(company);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            em.getTransaction().rollback();
+        }
         return company;
     }
 
     @Override
     public Company update(Company company) {
-        em.getTransaction().begin();
-        company = em.merge(company);
-        em.getTransaction().commit();
+        try {
+            em.getTransaction().begin();
+            company = em.merge(company);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            em.getTransaction().rollback();
+        }
         return company;
     }
 
@@ -35,15 +49,25 @@ public class CompanyRepository implements ModelRepository<Company> {
     public Company read(Long id) {
         em.getTransaction().begin();
         Company company = em.find(Company.class, id);
-        em.getTransaction().commit();
+        try {
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            em.getTransaction().rollback();
+        }
         return company;
     }
 
     @Override
     public void delete(Company company) {
-        em.getTransaction().begin();
-        em.remove(company);
-        em.getTransaction().commit();
+        try {
+            em.getTransaction().begin();
+            em.remove(company);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            em.getTransaction().rollback();
+        }
     }
 
     @Override

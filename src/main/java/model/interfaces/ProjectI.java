@@ -1,8 +1,8 @@
-package model.repository;
+package model.interfaces;
 
 import model.entity.Model;
 
-public interface ModelRepository<T extends Model> {
+public interface ProjectI <T extends Model> {
 
     T create(T t);
 

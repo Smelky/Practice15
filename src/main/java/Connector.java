@@ -8,8 +8,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class Connector {
+public final class Connector {
     private static Logger logger = Logger.getLogger(Connector.class);
+
+    private Connector() {
+    }
 
     public static Connection getConnection() {
         Connection connection = null;
