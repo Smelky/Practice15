@@ -9,6 +9,8 @@ import model.listener.ModelListener;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.HashSet;
@@ -24,7 +26,8 @@ import java.util.Set;
 public class Skill extends Model {
 
     @Column(name = "level")
-    private String level;
+    @Enumerated(EnumType.STRING)
+    private LevelType level;
 
     @ManyToMany(mappedBy = "skills")
     private Set<Developer> developers = new HashSet<>();

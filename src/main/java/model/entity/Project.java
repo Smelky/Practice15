@@ -13,7 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import java.time.LocalDate;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,7 +29,8 @@ import java.util.Set;
 public class Project extends Model {
 
     @Column(name = "date")
-    private LocalDate date;
+    @Temporal(TemporalType.DATE)
+    private Date date;
 
     @ManyToMany(mappedBy = "projects")
     private Set<Developer> developers = new HashSet<>();

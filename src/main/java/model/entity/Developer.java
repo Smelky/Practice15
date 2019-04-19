@@ -9,6 +9,8 @@ import model.listener.ModelListener;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -29,7 +31,8 @@ public class Developer extends Model {
     private int age;
 
     @Column(name = "sex")
-    private String sex;
+    @Enumerated(EnumType.STRING)
+    private GenderType sex;
 
     @Column(name = "salary")
     private int salary;
